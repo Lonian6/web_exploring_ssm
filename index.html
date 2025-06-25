@@ -1,0 +1,473 @@
+<html>
+
+<head>
+	<title>SiMBA</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta name="theme-color" content="#563d7c">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        audio {
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">
+
+    <div class="text-center">
+        <br>
+        <!-- Title -->
+        <div class="text-wrap" width="200px">
+            <font face="helvetica , ariel, &#39;sans serif&#39;" size="6">
+                <br><b>Exploring State-Space-Model Based Language Model</br>in Music Generation</b><br><br>
+            </font>
+        </div>
+
+        <!-- Author info -->
+        <p style="font-size: 1.3em; margin-bottom: 0;">
+            Wei-Jaw Lee, Fang-Chih Hsieh, Xuanjun Chen, Fang-Duo Tsai, and Yi-Hsuan Yang
+        </p>
+        <p style="margin-top: 0;">
+            Graduate Institute of Communication Engineering, National Taiwan University, Taiwan<br>
+        </p>
+        <p style="margin-top: 0;">
+            weijaw2000@gmail.com<br>
+        </p>
+
+        <!-- Click buttons -->
+        <!-- <div class="m-5">
+            <a class="btn btn-outline-dark" href="https://arxiv.org/abs/2311.07069" type="button"><i
+                    class="bi bi-newspaper"></i> Paper</a>
+            <a class="btn btn-outline-dark" href="https://youtu.be/QVr-S-DyccU" type="button"> <i
+                    class="bi bi-camera-reels"></i> Video</a>
+        </div> -->
+        <div class="container mt-4" style="max-width: 1000px;">
+            <div class="container">
+                <div class="section">
+
+                    <!-- # Show video -->
+                    <!-- <div class="embed-responsive embed-responsive-16by9">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/QVr-S-DyccU?si=zrU456y3XL6FFp51" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                    </div>
+                    <br> -->
+
+                    <!-- Show Abstract -->
+                    <h1 class="text-justify">Abstract</h1>
+                    <hr>
+                    <p class="pr-5 pl-5 text-justify">
+                        The recent surge in State Space Models (SSMs), particularly the emergence of Mamba, 
+                        has established them as strong alternatives or complementary modules to Transformers 
+                        across diverse domains. In this work, we aim to explore the potential of Mamba-based 
+                        architectures for music generation. We adopt discrete tokens of Residual Vector 
+                        Quantization (RVQ) as the modeling representation and empirically find that a single-layer 
+                        codebook suffices to capture the majority of semantic information in music. Motivated by 
+                        this observation, we focus on modeling a single-codebook representation and adapt SiMBA, 
+                        originally designed as a Mamba-based encoder, to function as a decoder for sequence modeling. 
+                        We compare its performance against a standard Transformer-based decoder. Our results suggest 
+                        that SiMBA achieves faster convergence and generates outputs closer to ground truth under 
+                        limited-resource settings, highlighting the promise of SSMs for efficient and expressive 
+                        music generation.
+                    </p>
+                </div><br>
+
+                <div class="section">
+                    <h1 class="text-justify">Demo Audio Samples</h1>
+                    <hr>
+                    <!-- Show the codec layers' difference -->
+                    <div class="section text-justify">
+                        <!-- Description -->
+                        <h2 id="dac">Reconstructed Audio With Differnt Layers of RVQ tokens by DAC</h2>
+                        Here demonstrating the audio samples that is reconstructed by DAC with differnt layers of RVQ tokens.
+                        <!-- Table -->
+                        <table class="table table-sm text-center" style="vertical-align: middle;">
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <h5 class="text-center">Original Audio</h5>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <h5 class="text-center">1 Layer</h5>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <h5 class="text-center">3 Layers</h5>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <h5 class="text-center">6 Layers</h5>
+                                    </td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <h5 class="text-center">9 Layers (Full)</h5>
+                                    </td>
+                                </tr>
+                                    <tr>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/1/ori.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/1/1_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/1/3_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/1/6_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/1/9_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/2/ori.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/2/1_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/2/3_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/2/6_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/2/9_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/3/ori.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/3/1_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/3/3_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/3/6_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <audio controls>
+                                                <source src="dac/3/9_tokens.wav" type="audio/mp3">
+                                            Your browser does not support the audio element.
+                                            </audio>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section text-justify">
+                        <!-- Description -->
+                        <h2>Prefix SiMBA vs. Cross Transformer (Random Sampled)</h2>
+                        This section shows the generated audio by Prefix SiMBA and Cross Transformer at 85k training steps. 
+                        As mentioned in paper, we only modeling on the single-codebook of DAC. 
+                        You may refer to the “1 Layer” column in the <a href="#dac">table</a> as the quality baseline.
+                        All the text prompt are randomly selected from MusicCaps, and audio samples here are randomly selected as well.
+                        <br><br>
+                        
+                        <!-- Table -->
+                        <table class="table table-sm text-center" style="vertical-align: middle;">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">
+                                        <h5 class="text-center">Sampled at 85k Training Steps</h5>
+                                    </td>
+                                </tr>
+                                    <tr>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <h5 class="text-center">Text Prompt</h5>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <h5 class="text-center">Prefix SiMBA</h5>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <h5 class="text-center">Cross Transformer</h5>
+                                        </td>
+                                    </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>The low quality recording features a Champeta song that consists of wooden percussive elements, electric guitar solo melody, funky electric rhythm guitar chords, shimmering shakers and hi hats and smooth bass guitar. It sounds funky and like something you would dance to in a bar.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/0.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/0.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>Someone is playing a song through speakers. The song contains digital drums with strong loud rhythmic hits rising up in pitch and a kick on every beat. A guitar-like sound is playing an arpeggio melody with other string instruments. This is an amateur recording and of poor sound-quality. This song may be playing at a rave party.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/1.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/1.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>This live recording features an instrumental song. This Regional Mexican song features an accordion playing the main melody. This is accompanied by an acoustic guitar strumming chords. A double bass plays the bass notes. A tambourine acts as the percussion. This song is in an upbeat mood. The song can be played at the entrance of a carnival.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/2.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/2.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>The low quality recording features a manically played piano melody over punchy kick and snare hits, followed by uptempo hi hats and shimmering open hats. It sounds aggressive, mani and thin, as it lacks low frequencies.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/3.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/3.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>This song is an instrumental. The tempo is medium with a melodious keyboard harmony, rhythmic guitar accompaniment, punchy drumming, subtle bass line, synth arrangement and tambourine beats. The music is soft, mellow, ambient, pleasant, uplifting, and mellifluous.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/4.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/4.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>Someone is playing a track from speakers. This song contains a strong e-bass playing a funky bassline along with a funky drum groove. Then a piano comes in playing a jazzy melody in one scale accompanied by a synth brass sound swelling into existence and playing a short rise before leaving again. This is an amateur recording but of decent audio-quality. This song may be playing in a jazzbar.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/5.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/5.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>The song is an instrumental. The song is medium tempo with a guitar playing solo, steady drum rhythm, groovy bass line and steady bass line. The song is funky and groovy in nature. The song is an ad jingle.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/6.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/6.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>This is a thrilling orchestral piece that feels epic, suspenseful and intense. There are string instruments like violins and cellos, and timpani for percussion. There is one over-bearing vibrational sound that overwhelms the whole arrangement - it is played once and rings for three seconds.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/7.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/7.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>An acoustic drum is playing a faster groove along with a bassline and a harmonica playing a chord on the offbeat and in a lower key. A e-guitar is playing a melody in the mid range. There are some background noises that remind me of someone brushing his/her teeth. This song may be playing live at a bar.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/8.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/8.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <p>This music is an Electronic dance instrumental. The tempo is medium fast with punchy drum beats and groovy electronic arrangements.The music is buoyant, energetic, electric, pulsating, youthful and vigorous. The thumpy, rhythmic bass and drumming gives it a groovy dance beat.
+                                                </p>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/simba/9.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <audio controls>
+                                                    <source src="exp1/85k/transformer/9.wav" type="audio/mp3">
+                                                Your browser does not support the audio element.
+                                                </audio>
+                                            </td>
+                                        </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Add JavaScript to toggle the collapsible content
+        var buttons = document.querySelectorAll(".collapsible-button");
+        buttons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        });
+
+        const audioElements = document.querySelectorAll('audio');
+
+        // 為每個 audio 元素添加播放事件監聽器
+        audioElements.forEach(audio => {
+            audio.addEventListener('play', () => {
+                // 當某個音檔開始播放時，暫停其他所有音檔
+                audioElements.forEach(otherAudio => {
+                    if (otherAudio !== audio && !otherAudio.paused) {
+                        otherAudio.pause();
+                        // 可選：otherAudio.currentTime = 0; // 重置其他音檔到開頭
+                    }
+                });
+            });
+        });
+        
+
+    </script>
+
+</body>
+
+</html>
